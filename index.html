@@ -312,6 +312,7 @@ function ccopy(){
       
 console.log(words)
 
+
 var tempPos
 map.on('click', function(e) {
     try{
@@ -368,18 +369,30 @@ map.on('click', function(e) {
 
         alata = String(alat).split(".")
         alona = String(alon).split(".")
+         console.log("4key : ",alata[0],alata[1],alona[0],alona[1])
+        console.log("4key : ",alata[0],pad2(alata[1]),alona[0],pad2(alona[1]))
 
-        a1 = words[parseInt(alata[0])]
-        a2 = words[parseInt(alata[1])]
-        a3 = words[parseInt(alona[0])]
-        a4 = words[parseInt(alona[1])]
+        w1 = parseInt(alata[0])
+        w2 = parseInt(pad2(alata[1]))
+        w3 = parseInt(alona[0])
+        w4 = parseInt(pad2(alona[1]))
+
+
+        a1 = words[w1]
+        a2 = words[w2]
+        a3 = words[w3]
+        a4 = words[w4]
 
         console.log(alata)
+
+        console.log("keycode : ",w1,w2,w3,w4)
+        console.log("wordcode : ",a1,a2,a3,a4)
 
 
 
         llat = math.divide(math.add(x_lat,90),180)
         llon =math.divide(math.add(x_lon,180),360)
+
 
         console.log(math.divide(math.add(x_lat,90),180))
         console.log(math.divide(math.add(x_lon,180),360))
@@ -394,7 +407,7 @@ map.on('click', function(e) {
         gcode = a1+","+a3+","+a2+","+a4
         
         
-        console.log(parseInt(alata[0]),parseInt(alona[0]),parseInt(alata[1]),parseInt(alona[1]))
+        console.log()
 
 
         tempPos = L.circle([e.latlng.lat,e.latlng.lng], {
@@ -450,6 +463,12 @@ function pad(num, size) {
     return num;
 }
 
+function pad2(num){
+    num = num.toString()
+    while (num.length < 4) num = num + "0"
+    return num
+}
+
 
 
 function toGmaps(){
@@ -478,8 +497,8 @@ function reversGeoCode(){
         a2 = pad(a2,4)
         a4 = pad(a4,4)
 
-        lat = math.format(math.add(math.bignumber(a1+"."+a2),-90))
-        lon = math.format(math.add(math.bignumber(a3+"."+a4),-180))
+        lat = math.format(math.add(math.bignumber(a1+"."+a2),-90),{notation:'fixed',precision:4})
+        lon = math.format(math.add(math.bignumber(a3+"."+a4),-180),{notation:'fixed',precision:4})
 
         glon = lon
         glat = lat

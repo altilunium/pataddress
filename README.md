@@ -11,7 +11,7 @@ https://altilunium.github.io/pataddress
 2. Delete `nya.pickle`
 3. Execute `nya.py`
 4. Repeat this step until you reach at least 10.000 unique words
-5. Execute `nyo.py`, configure the parameter (line 10 : maximum word length, or you can setup your own custom parameter)
+5. Open `nyo.py`, configure the parameter (line 10 : maximum word length, or you can setup your own custom parameter), execute `nyo.py`, make sure that you have at least 10.000 word entry.
 6. Copy the list from `nyo.py` output to `index.html` line 132
 
 The default word database is derived from Project Gutenberg's "The Adventures of Sherlock Holmes", "Alice's Adventures in Wonderland", and "Dracula", sorted by most frequent word.

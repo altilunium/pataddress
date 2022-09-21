@@ -5,6 +5,11 @@ Global address in four words
 
 https://altilunium.github.io/pataddress
 
+## How to Use
+Click a location, then 4-words address will be generated. 
+
+## How to decode a 4-words address
+Click "?" icon, enter your 4-words address (space separated). 
 
 ## Build your own word database by using word frequency analysis
 1. Delete `nya.pickle`

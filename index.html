@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="leaflet.css" />
     <script src="leaflet.js"></script>
+    <meta name="twitter:card" content="summary"></meta>
+    <meta property="og:title" content="Pataddress : Global address in 4 words" />
     
 
 <style>
@@ -110,7 +112,7 @@ img {
 #board h1{
      padding: 0px;
     margin: 4px;
-    font-size: 18px;
+    font-size: 25px;
     font-family: 'Arial';
 }
 
@@ -118,10 +120,10 @@ img {
 </head>
 <body>
 
-<div id="board" ><h1 id="coord"></h1></div>    
+<div id="board" ><h1 id="coord">Click location on the map</h1></div>    
 <div id="mapid"></div>
 <div id="titl" onclick="reversGeoCode()">?</div>
-<div id="titl2" onclick="toGmaps()">G</div>
+<div id="titl2" onclick="toGmaps()">Open in Gmaps</div>
 
 
 <script src="math.js"></script>
@@ -225,6 +227,11 @@ db.transaction("rw", db.places, function*(){
 
 var map = L.map('mapid',{ zoomControl: false }).setView({lat: -2.811371193331128, lng:  113.64257812500001},5)
 
+L.control.attribution({
+  position: 'bottomleft'
+}).addTo(map);
+
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 maxZoom: 19,
 attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
@@ -238,6 +245,8 @@ async function setFocus(){
     var points = yield db.mapState.where({k:1}).first();
     if (points){
         map.setView({lat:points.lat, lng:points.lon},points.z)
+        glat = points.lat
+        glon = points.lon 
     }
 
 
@@ -248,7 +257,19 @@ async function setFocus(){
 }
 
 
-setFocus()
+
+
+if (findGetParameter("q")){
+    var nya = findGetParameter("q")
+    nya = nya.replace(/([a-z])([A-Z])/g, '$1 $2');
+    console.log(nya)
+    coreReversGeoCode(nya)
+}
+else{
+    setFocus()
+}
+
+
 
 
 
@@ -402,7 +423,7 @@ map.on('click', function(e) {
         document.getElementById("coord").innerHTML = e.latlng.lat+","+e.latlng.lng
         //document.getElementById("coord").innerHTML = llat+","+llon
         //document.getElementById("coord").innerHTML = alat+","+alon
-        document.getElementById("coord").innerHTML = a1+","+a3+","+a2+","+a4
+        document.getElementById("coord").innerHTML = a1+" "+a3+" "+a2+" "+a4
 
         gcode = a1+","+a3+","+a2+","+a4
         
@@ -480,12 +501,43 @@ function toGmaps(){
 
 }
 
+function findGetParameter(parameterName) {
+    var result = null,
+        tmp = [];
+    location.search
+        .substr(1)
+        .split("&")
+        .forEach(function (item) {
+          tmp = item.split("=");
+          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        });
+    return result;
+}
+
+
+
+
+  
+
+
+
+
+
+
 
 
 function reversGeoCode(){
-    var lonlat = prompt("Enter words");
-        lonlat = lonlat.split(",")
+    var lonlat = prompt("Enter 4-words address (separated with space)");
+    coreReversGeoCode(lonlat)
+}
+
+
+
+function coreReversGeoCode(lonlat){
+        lonlat = lonlat.trim().toUpperCase()
         document.getElementById("coord").innerHTML = lonlat
+        lonlat = lonlat.split(" ")
+        
 
         a1 = kwords[lonlat[0]]
         a2 = kwords[lonlat[2]]

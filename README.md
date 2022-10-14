@@ -12,6 +12,7 @@ Click a location, then 4-words address will be generated.
 Click "?" icon, enter your 4-words address (space separated). 
 
 ## Share locations
+Just create the `?q` URL by using 4-words address. Example : 
 https://altilunium.github.io/pataddress/?q=OnlyDarkAppealsChamber
 
 ## Build your own word database by using word frequency analysis

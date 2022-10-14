@@ -11,6 +11,9 @@ Click a location, then 4-words address will be generated.
 ## How to decode a 4-words address
 Click "?" icon, enter your 4-words address (space separated). 
 
+## Share locations
+https://altilunium.github.io/pataddress/?q=OnlyDarkAppealsChamber
+
 ## Build your own word database by using word frequency analysis
 1. Delete `nya.pickle`
 2. Copy a document to `nya`
